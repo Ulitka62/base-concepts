@@ -16,9 +16,23 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  let totalAmount;
-
-  // код для задачи №2 писать здесь
-
+   let S = amount - contribution ; // Тело кредита
+  let P = percent / 100 / 12 ; // Процентная ставка
+  let now = new Date();
+   let n = date.getMonth() - now.getMonth() + (12*(date.getFullYear() - now.getFullYear())); // Срок кредита
+  
+  if (isNaN(percent)|| percent<0) {
+    return 'Ошибка ввода данных процентной ставки'
+  }else if(isNaN(contribution)|| contribution<0){
+    return 'Ошибка ввода данных суммы первоначального взноса'
+  }else if (isNaN(amount) || amount<0){
+    return 'Ошибка ввода данных суммы кредита'
+  } else if (isNaN(date) || date<0){
+    return 'Ошибка ввода данных даты'
+  }else {
+    let  payMonth = S*(P+P/(((1+P)**n)-1)); // Ежемесячная оплата
+    let totalAmount = (payMonth*n).toFixed(2); // Общая сумма
+    console.log(totalAmount);
   return totalAmount;
-}
+  }
+};
